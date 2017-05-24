@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Ising model</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+
+	<body>
+
+		<h1>Ising Model</h1>
+		<div id="lattice">
+			<canvas id="theCanvas" width="500" height="500"></canvas>
+		</div>
+		<div>
+			temperature = <input id="tempReadout" type="text" readonly size="5" value="2.27">
+			<input id="tempSlider" type="range" min="0.01" max="10" step="0.01" value="2.27"
+			onchange="showTemp()" style="width: 180px">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input id="startButton" type="button" onclick="startStop()" value=" start ">
+		</div>
+<div id="chartContainer"style="position: absolute; top: 70px; left: 600px; width: 500px; height:200px; background-color: azure;">
+</div>
+
+	</body>
+
+	<script src="ising.js"></script>
+	<script type="text/javascript" src="canvasjs.min.js"></script>
+
+	</html>
