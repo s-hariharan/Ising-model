@@ -62,7 +62,7 @@ function colorSquare(i,j) {
     r = 215; g = 100; b = 155;
   }
   else{
-    r = 185; g = 25; b = 192;
+    r = 185; g = 25; b = 72;
   }
   for(py=j*squareWidth; py<(j+1)*squareWidth; py++) {
     for( px= i*squareWidth; px<(i+1)*squareWidth; px++){
