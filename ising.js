@@ -59,10 +59,10 @@ function simulate(){
 function colorSquare(i,j) {
   var r,g,b;
   if(s[i][j] == 1){
-    r = 255; g = 255; b = 255;
+    r = 215; g = 100; b = 155;
   }
   else{
-    r = 0; g = 0; b = 0;
+    r = 185; g = 25; b = 192;
   }
   for(py=j*squareWidth; py<(j+1)*squareWidth; py++) {
     for( px= i*squareWidth; px<(i+1)*squareWidth; px++){
