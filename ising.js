@@ -15,7 +15,18 @@ var startTime = 0;
 var squareWidth = canvas.width/size;
 var accept = 0;
 var running = false;
+//Graphing part
+var ilsoc =500;
+var myp = new MakeDraw();
+myp.id = "canv";
+myp.gridcolor= 'rgba(200,232,53,1)';
+myp.plotcolor= 'rgba(0,0,0,0.05)';
+myp.fSize=15;
+myp.enumerateP=0;
+myp.enumerateH=0;
+myp.enumerateV=1;
 
+var data=prepData(ilsoc);
 
 
 
@@ -51,6 +62,15 @@ function simulate(){
     }
   }
   context.putImageData(image,0,0);
+  recalc();
+  var etotal=0;
+  for( var i=0 ; i<size; i++){
+    for( var j=0; j<size; j++){
+      etotal= etotal+total(i,j);
+    }
+  }
+  energyReadout.value = Number(etotal/(size*size)).toFixed(2);
+
 }
   window.setTimeout(simulate,1);
 
@@ -59,10 +79,10 @@ function simulate(){
 function colorSquare(i,j) {
   var r,g,b;
   if(s[i][j] == 1){
-    r = 215; g = 100; b = 155;
+    r = 255; g = 255; b = 255;
   }
   else{
-    r = 185; g = 25; b = 72;
+    r = 0; g = 0; b = 0;
   }
   for(py=j*squareWidth; py<(j+1)*squareWidth; py++) {
     for( px= i*squareWidth; px<(i+1)*squareWidth; px++){
@@ -87,61 +107,6 @@ function total(i,j){
   return -deltaU(i,j)/8;
 }
 
-window.onload = function () {
-
-  var dps = []; // dataPoints
-
-  var chart = new CanvasJS.Chart("chartContainer",{
-    title :{
-      text: "energy vs time"
-    },
-    data: [{
-      type: "line",
-      dataPoints: dps
-    }]
-  });
-
-  var xVal = 0;
-  var yVal = 0;
-  var updateInterval = 1;
-  var dataLength = 10000; // number of dataPoints visible at any point
-
-  var updateChart = function () {
-
-    var etotal=0;
-
-    for( var i=0 ; i<size; i++){
-      for( var j=0; j<size; j++){
-        etotal= etotal+total(i,j);
-      }
-    }
-    yVal=etotal/(size*size);
-
-
-
-
-      dps.push({
-        x: xVal,
-        y: yVal
-      });
-      xVal++;
-      yVal=0;
-
-    if (dps.length > dataLength)
-    {
-      dps.shift();
-    }
-
-    chart.render();
-
-  };
-
-  // generates first set of dataPoints
-  updateChart(dataLength);
-
-  // update chart after specified time.
-  setInterval(function(){updateChart()}, updateInterval);
-}
 
 function showTemp(){
   tempReadout.value = Number(tempSlider.value).toFixed(2);
@@ -155,6 +120,27 @@ function startStop() {
 else {
   startButton.value = " Resume ";
 }
+}
 
+function prepData(amount){
+  var arr = new Array(amount);
+  for(var i=0; i<amount;i++){
+    arr[i]=0;
+  }
+  return arr;
+}
+function recalc() {
+  var etotal=0;
+  for(var i=1;i<ilsoc;i++){
+    data[i-1]=data[i];
+  }
+  for( var i=0 ; i<size; i++){
+    for( var j=0; j<size; j++){
+      etotal= etotal+total(i,j);
+    }
+  }
+  data[ilsoc-1]=etotal/(size*size);
+  myp.data=data;
+  myp.plot();
 
 }
