@@ -6,6 +6,7 @@
 	<title>Ising Model</title>
 </head>
 <body>
+	<script src="plot.js"></script>
 	<center><header>
 		<h1>Ising Model<h1>
 	</header></center>
@@ -30,11 +31,12 @@
 			<input id="startButton" type="button" onclick="startStop()" value=" Start ">
 		</div>
 		<div id="chartContainer">
+			<canvas id="canv" height="400" width="650"></canvas>
 		</div>
 
 	</div>
 </body>
 <script src="ising.js"></script>
-<script type="text/javascript" src="canvasjs.min.js"></script>
+
 
 </html>
